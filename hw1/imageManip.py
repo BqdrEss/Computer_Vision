@@ -16,18 +16,13 @@ def load(image_path):
     Returns:
         out: numpy array of shape(image_height, image_width, 3).
     """
-    out = None
-
-    ### YOUR CODE HERE
-    # Use skimage io.imread
-    pass
-    ### END YOUR CODE
+    out = io.imread(image_path)
 
     # Let's convert the image to be between the correct range.
     out = out.astype(np.float64) / 255
     return out
 
-x
+
 def dim_image(image):
     """Change the value of every pixel by following
 
@@ -42,11 +37,7 @@ def dim_image(image):
         out: numpy array of shape(image_height, image_width, 3).
     """
 
-    out = None
-
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    out =  0.5 * np.power(image,2)
 
     return out
 
@@ -63,11 +54,8 @@ def convert_to_grey_scale(image):
     Returns:
         out: numpy array of shape(image_height, image_width).
     """
-    out = None
+    out = color.rgb2gray(image.copy())
 
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
 
     return out
 
@@ -82,12 +70,12 @@ def rgb_exclusion(image, channel):
     Returns:
         out: numpy array of shape(image_height, image_width, 3).
     """
-
-    out = None
-
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    ch=['R','G','B']
+    out = image.copy()
+    for i in range(3):
+        if channel==ch[i]:
+             out[:,:,i] = 0
+   
 
     return out
 
@@ -103,12 +91,13 @@ def lab_decomposition(image, channel):
         out: numpy array of shape(image_height, image_width).
     """
 
-    lab = color.rgb2lab(image)
-    out = None
+    lab = color.rgb2lab(image.copy())
+    ch=['L','A','B']
+    for i in range(3):
+        if channel==ch[i]:
+            out =lab[:,:,i]
 
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    
 
     return out
 
@@ -125,11 +114,12 @@ def hsv_decomposition(image, channel='H'):
     """
 
     hsv = color.rgb2hsv(image)
-    out = None
-
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    ch=['H','S','V']
+    out = hsv.copy()
+    for i in range(3):
+        if channel==ch[i]:
+            out =hsv[:,:,i]
+   
 
     return out
 
@@ -151,11 +141,9 @@ def mix_images(image1, image2, channel1, channel2):
     Returns:
         out: numpy array of shape(image_height, image_width, 3).
     """
-
-    out = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    im1=rgb_exclusion(image1,channel1)
+    im2=rgb_exclusion(image2,channel2)
+    out = np.concatenate((im1[:,:im1.shape[1]//2],im2[:,im2.shape[1]//2:]),axis=1)
 
     return out
 
@@ -180,10 +168,10 @@ def mix_quadrants(image):
     Returns:
         out: numpy array of shape(image_height, image_width, 3).
     """
-    out = None
-
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
-
+    xs = image.shape[0]//2  # division lines for the picture
+    ys = image.shape[1]//2
+    
+    out = np.concatenate(( np.concatenate((rgb_exclusion(image[:xs,:ys],'R'),np.power(image[xs:,:ys],0.5)),axis=0),
+                          np.concatenate((dim_image(image[:xs,ys:]),rgb_exclusion(image[xs:,ys:],'R')),axis=0)),axis=1)
+  
     return out
