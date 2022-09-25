@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 
 def dot_product(a, b):
@@ -15,10 +16,7 @@ def dot_product(a, b):
         out: numpy array of shape (x, x) (scalar if x = 1)
     """
 
-    out = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    out = np.dot(a,b)
     return out
 
 
@@ -36,10 +34,7 @@ def complicated_matrix_function(M, a, b):
     Returns:
         out: numpy matrix of shape (x, 1).
     """
-    out = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    out = np.linalg.multi_dot([M,a.T,a,b])
 
     return out
 
@@ -61,9 +56,7 @@ def svd(M):
     u = None
     s = None
     v = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    u,s,v=np.linalg.svd(M, full_matrices=False)
 
     return u, s, v
 
@@ -81,10 +74,8 @@ def get_singular_values(M, k):
     Returns:
         singular_values: array of shape (k)
     """
-    singular_values = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    _,singular_values,_ = svd(M)
+    singular_values = singular_values[:k]
     return singular_values
 
 
@@ -102,10 +93,9 @@ def eigen_decomp(M):
     """
     w = None
     v = None
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    w,v=np.linalg.eig(M)
     return w, v
+
 
 
 def get_eigen_values_and_vectors(M, k):
@@ -127,7 +117,14 @@ def get_eigen_values_and_vectors(M, k):
     """
     eigenvalues = []
     eigenvectors = []
-    ### YOUR CODE HERE
-    pass
-    ### END YOUR CODE
+    w,v = eigen_decomp(M)
+    w0 = abs(w)
+    for _ in range(k):
+        for ele in range(len(w)):
+            if w0[ele] == max(w0):
+                eigenvalues.append(w[ele])
+                eigenvectors.append(v[ele])
+                w0[ele] = -math.inf
+                break       
+        
     return eigenvalues, eigenvectors
