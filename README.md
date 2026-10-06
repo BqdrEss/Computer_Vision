@@ -1,24 +1,27 @@
 # Computer vision
 
-> **Coursework + project extension** · Assignments in hw1–hw3; independent inspection baseline in projects/
+> **Coursework + project extension** · Assignments in hw1–hw3 and coursework/hada; independent inspection baseline in projects/
 >
 > [Selected projects](https://github.com/BadrEss01/BadrEss01#selected-projects) · [Coursework](https://github.com/BadrEss01/BadrEss01/blob/main/COURSEWORK.md)
 
-Implementations and experiments from computer-vision coursework. The repository currently covers image manipulation, linear algebra, convolution and template matching, edge detection, Canny processing and Hough-transform voting.
+Implementations and experiments from computer-vision coursework. The repository currently covers image manipulation, linear algebra, convolution and template matching, edge detection, Canny processing Hough-transform voting, image augmentation, and a CNN classification study.
 
 ## Choose what to explore
 
-- **Coursework:** `hw1/`, `hw2/`, `hw3/` and their algorithm checks in `tests/`.
+- **Coursework:** `hw1/`, `hw2/`, `hw3/`, and [image augmentation and CNN classification](coursework/hada/README.md), imported from my `hada` repository.
 - **Applied project:** [Surface-inspection baseline](projects/wall-blade-surface-defects/README.md), with its own detector and tests. This follow-up is separate from the historical assignments.
 
 ## Structure
 
+- `coursework/hada/`: original augmentation helper and TensorFlow/Keras classification notebook; dataset not included.
 - `hw1/`: image loading/manipulation and linear-algebra helpers.
 - `hw2/`: convolution, cross-correlation and normalized template matching.
 - `hw3/`: Gaussian filtering, image gradients, non-maximum suppression, hysteresis and Hough voting.
 - `hw3/references/`: reference arrays used by the edge-detection notebook.
 - `projects/wall-blade-surface-defects/`: new surface-anomaly inspection baseline.
 - `tests/`: algorithm regression checks.
+
+The `hada` notebook is an unfinished study exercise with separate dependencies and known shape/indexing issues. See its [coursework notes](coursework/hada/README.md) before running it.
 
 ## Run
 
