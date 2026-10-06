@@ -21,4 +21,4 @@ The original code is retained. It has unresolved batch/image indexing and resize
 
 Consolidated from my `hada` repository into this coursework collection. The original repository retains its commit history; the notebook cell source and Python helper are preserved here.
 
-[Back to computer vision coursework](../../README.md)
+[Back to computer vision coursework](../README.md)
